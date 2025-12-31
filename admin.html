@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="font-family:Arial; background:#222; color:white; text-align:center">
+
+<h2>Admin Reset Panel</h2>
+
+<input type="password" id="pwd" placeholder="Admin password">
+<br><br>
+
+<button onclick="resetAll()">RESET ALL CHOICES</button>
+
+<p id="msg"></p>
+
+<script>
+function resetAll() {
+  const password = document.getElementById("pwd").value;
+
+  fetch("https://script.google.com/macros/s/AKfycbyEFgwQEO6bhVK9SDREKz42JNZP6rEX0ULxI8bTInkBGR-ngu5edq_J8c8e4TXfZ3YC/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      action: "reset",
+      password: password
+    })
+  })
+  .then(res => res.text())
+  .then(txt => {
+    if (txt === "RESET_OK") {
+      document.getElementById("msg").innerText = "Reset successful ✅";
+    } else {
+      document.getElementById("msg").innerText = "Wrong password ❌";
+    }
+  });
+}
+</script>
+
+</body>
+</html>
